@@ -3,19 +3,16 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
-  background-color: rgb(153, 65, 236);
+  background-color: #9941ec;
 }
-
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
 }
-
-.create-button {
+.create-new-task-button button {
   cursor: pointer;
   width: 150px;
   height: 30px;
@@ -23,32 +20,31 @@ body {
   font-weight: 600;
   border: 0px;
   border-radius: 5px;
-  background-color: rgb(201, 200, 200);
+  background-color: #c9c8c8;
 }
-
 .header {
   width: 90%;
   border-radius: 0px 0px 10px 10px;
-  background-color: rgb(204, 136, 218);
+  background-color: #cc88da;
   text-align: center;
 }
-
 .create-new-task {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
 }
-
-.new-task-title input {
+.create-new-task-title input {
   width: 200px;
   height: 25px;
   border: 0px;
   border-radius: 5px;
   padding: 3px;
 }
-
-.new-task-description textarea {
+.create-new-task-description textarea {
   resize: none;
   width: 200px;
   height: 100px;
@@ -57,25 +53,21 @@ body {
   border-radius: 5px;
   overflow: auto;
 }
-
-.new-task-button-create button {
+.create-new-task-button-create button {
   width: 125px;
   height: 30px;
   font-weight: 600;
-  background-color: rgb(201, 200, 200);
+  background-color: #c9c8c8;
   border: 0px;
   border-radius: 5px;
   cursor: pointer;
 }
-
-.new-task-deadLine {
+.create-new-task-deadLine {
   display: flex;
   flex-direction: column;
 }
-
 .task {
   width: 300px;
-  /* background-color: rgb(204, 136, 218); */
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   padding: 5px;
@@ -84,43 +76,38 @@ body {
   align-items: center;
   gap: 5px;
 }
-
-.task .title {
+.task-title {
   display: flex;
   flex-direction: column;
 }
-.task .title h3 {
+.task-title h3 {
   width: 250px;
-  background-color: rgb(214, 214, 214);
+  background-color: #d6d6d6;
   border-radius: 5px;
   text-align: center;
   align-self: center;
 }
-.task .title span {
+.task-title span {
   font-size: 18px;
   opacity: 0.4;
 }
-
-.task .description span {
+.task-description span {
   font-size: 18px;
   opacity: 0.4;
 }
-
-.task .description p {
+.task-description p {
   width: 250px;
   height: 100px;
   padding: 3px;
-  background-color: rgb(214, 214, 214);
+  background-color: #d6d6d6;
   border-radius: 5px;
 }
-
-.button-control {
+.task-button-control {
   display: flex;
   flex-direction: row;
   gap: 30px;
 }
-
-.button-control button {
+.task-button-control button {
   cursor: pointer;
   width: 100px;
   height: 30px;
@@ -128,10 +115,9 @@ body {
   font-weight: 600;
   border: 0px;
   border-radius: 5px;
-  background-color: rgb(201, 200, 200);
+  background-color: #c9c8c8;
 }
-
-.edit-button button {
+.task-edit-button button {
   cursor: pointer;
   width: 100px;
   height: 30px;
@@ -139,21 +125,18 @@ body {
   font-weight: 600;
   border: 0px;
   border-radius: 5px;
-  background-color: rgb(201, 200, 200);
+  background-color: #c9c8c8;
 }
-
 .edit-task {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
 }
-
 .edit-task-title p {
   opacity: 0.5;
   font-size: 17px;
 }
-
 .edit-task-title input {
   width: 250px;
   height: 25px;
@@ -161,12 +144,10 @@ body {
   border: 0px;
   padding: 3px;
 }
-
 .edit-task-description p {
   opacity: 0.5;
   font-size: 17px;
 }
-
 .edit-task-description textarea {
   width: 250px;
   height: 100px;
@@ -176,19 +157,16 @@ body {
   border-radius: 5px;
   overflow: auto;
 }
-
 .edit-task-deadLine {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5px;
 }
-
 .edit-task-deadLine span {
   opacity: 0.5;
   font-size: 17px;
 }
-
 .edit-task-deadLine input {
   border: 0px;
   border-radius: 5px;
@@ -196,7 +174,6 @@ body {
   height: 25px;
   padding: 3px;
 }
-
 .edit-task-button button {
   cursor: pointer;
   width: 100px;
@@ -205,5 +182,13 @@ body {
   font-weight: 600;
   border: 0px;
   border-radius: 5px;
-  background-color: rgb(201, 200, 200);
+  background-color: #c9c8c8;
+}
+.edit-task-current-file {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.edit-task-current-file span {
+  cursor: pointer;
 }

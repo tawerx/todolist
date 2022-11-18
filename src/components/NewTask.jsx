@@ -32,23 +32,6 @@ const NewTask = ({ setVisible, task, setTask }) => {
 
   const dateFormate = dayjs().format('YYYY-MM-DD');
 
-  // const uploadAndGetUrl = async (file) => {
-  //   try {
-  //     const id = (+new Date()).toString(16);
-  //     const fileRef = ref(storage, `files/${file.name}${id}`);
-  //     await uploadBytes(fileRef, file);
-  //     const fileUrl = await getDownloadURL(fileRef);
-
-  //     return {
-  //       id: id,
-  //       fileName: `${file.name}${id}`,
-  //       fileUrl: fileUrl,
-  //     };
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const onChangeFile = async (e) => {
     try {
       const files = e.target.files;
@@ -104,7 +87,7 @@ const NewTask = ({ setVisible, task, setTask }) => {
 
   return (
     <div className="create-new-task">
-      <div className="new-task-title">
+      <div className="create-new-task-title">
         <input
           type="text"
           value={taskTitle}
@@ -112,14 +95,14 @@ const NewTask = ({ setVisible, task, setTask }) => {
           placeholder="Введите заголовок"
         />
       </div>
-      <div className="new-task-description">
+      <div className="create-new-task-description">
         <textarea
           value={taskDesc}
           onChange={(e) => setTastDesc(e.target.value)}
           placeholder="Опишите задачу"
         />
       </div>
-      <div className="new-task-deadLine">
+      <div className="create-new-task-deadLine">
         <span>До какого числа нужно выполнить</span>
 
         <input
@@ -129,10 +112,10 @@ const NewTask = ({ setVisible, task, setTask }) => {
           min={dateFormate}
         />
       </div>
-      <div className="new-task-fileUpload">
+      <div className="create-new-task-fileUpload">
         <input type="file" onChange={onChangeFile} multiple="multiple" />
       </div>
-      <div className="new-task-button-create">
+      <div className="create-new-task-button-create">
         <button onClick={onClickCreate} disabled={activeBut}>
           Создать запись
         </button>

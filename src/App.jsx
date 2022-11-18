@@ -24,7 +24,7 @@ const App = () => {
     <div className="container">
       <Header />
       <div className="create-new-task-button">
-        <button disabled={visible} className="create-button" onClick={() => setVisible(true)}>
+        <button disabled={visible} onClick={() => setVisible(true)}>
           Создать новую задачу
         </button>
       </div>

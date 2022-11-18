@@ -129,7 +129,7 @@ const EditTask = ({
       {files.length > 0 &&
         files.map((obj) => {
           return (
-            <div className="file" key={obj.id}>
+            <div className="edit-task-current-file" key={obj.id}>
               <a href={obj.fileUrl} target={'_blank'}>
                 {obj.fileName.slice(0, obj.fileName.indexOf(obj.id))}
               </a>

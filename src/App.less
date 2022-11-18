@@ -1,0 +1,242 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(153, 65, 236);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.create-new-task-button {
+  button {
+    cursor: pointer;
+    width: 150px;
+    height: 30px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 0px;
+    border-radius: 5px;
+    background-color: rgb(201, 200, 200);
+  }
+}
+
+.header {
+  width: 90%;
+  border-radius: 0px 0px 10px 10px;
+  background-color: rgb(204, 136, 218);
+  text-align: center;
+}
+
+.create-new-task {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+
+  &-title {
+    input {
+      width: 200px;
+      height: 25px;
+      border: 0px;
+      border-radius: 5px;
+      padding: 3px;
+    }
+  }
+
+  &-description {
+    textarea {
+      resize: none;
+      width: 200px;
+      height: 100px;
+      padding: 3px;
+      border: 0px;
+      border-radius: 5px;
+      overflow: auto;
+    }
+  }
+
+  &-button-create {
+    button {
+      width: 125px;
+      height: 30px;
+      font-weight: 600;
+      background-color: rgb(201, 200, 200);
+      border: 0px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+
+  &-deadLine {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.task {
+  width: 300px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+
+  &-title {
+    display: flex;
+    flex-direction: column;
+
+    h3 {
+      width: 250px;
+      background-color: rgb(214, 214, 214);
+      border-radius: 5px;
+      text-align: center;
+      align-self: center;
+    }
+
+    span {
+      font-size: 18px;
+      opacity: 0.4;
+    }
+  }
+
+  &-description {
+    span {
+      font-size: 18px;
+      opacity: 0.4;
+    }
+
+    p {
+      width: 250px;
+      height: 100px;
+      padding: 3px;
+      background-color: rgb(214, 214, 214);
+      border-radius: 5px;
+    }
+  }
+
+  &-button-control {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+
+    button {
+      cursor: pointer;
+      width: 100px;
+      height: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 0px;
+      border-radius: 5px;
+      background-color: rgb(201, 200, 200);
+    }
+  }
+
+  &-edit-button {
+    button {
+      cursor: pointer;
+      width: 100px;
+      height: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 0px;
+      border-radius: 5px;
+      background-color: rgb(201, 200, 200);
+    }
+  }
+}
+
+.edit-task {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  &-title {
+    p {
+      opacity: 0.5;
+      font-size: 17px;
+    }
+
+    input {
+      width: 250px;
+      height: 25px;
+      border-radius: 5px;
+      border: 0px;
+      padding: 3px;
+    }
+  }
+
+  &-description {
+    p {
+      opacity: 0.5;
+      font-size: 17px;
+    }
+
+    textarea {
+      width: 250px;
+      height: 100px;
+      padding: 3px;
+      resize: none;
+      border: 0px;
+      border-radius: 5px;
+      overflow: auto;
+    }
+  }
+
+  &-deadLine {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+
+    span {
+      opacity: 0.5;
+      font-size: 17px;
+    }
+
+    input {
+      border: 0px;
+      border-radius: 5px;
+      width: 110px;
+      height: 25px;
+      padding: 3px;
+    }
+  }
+
+  &-button {
+    button {
+      cursor: pointer;
+      width: 100px;
+      height: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 0px;
+      border-radius: 5px;
+      background-color: rgb(201, 200, 200);
+    }
+  }
+
+  &-current-file {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    span {
+      cursor: pointer;
+    }
+  }
+}

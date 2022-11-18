@@ -3,7 +3,6 @@ import React from 'react';
 import { db, storage } from './firebase-config';
 import EditTask from './EditTask';
 import dayjs from 'dayjs';
-import { async } from '@firebase/util';
 import { deleteObject, ref } from 'firebase/storage';
 
 const Task = ({
@@ -101,23 +100,23 @@ const Task = ({
 
   return (
     <div className="task" ref={taskRef}>
-      <div className="title" onClick={() => setVisible(!visible)}>
+      <div className="task-title" onClick={() => setVisible(!visible)}>
         <span>Название задачи</span>
         <h3>{title}</h3>
       </div>
       {visible && (
         <>
-          <div className="description">
+          <div className="task-description">
             <span>Описание задачи</span>
             <p>{description}</p>
           </div>
-          <div className="deadLine">
+          <div className="task-deadLine">
             <span>{delay ? `Нужно было выполнить к ${date}` : `Нужно выполнить к ${date}`}</span>
           </div>
           {files.length > 0
             ? files.map((obj) => {
                 return (
-                  <div className="file" key={obj.id}>
+                  <div className="task-file" key={obj.id}>
                     <a href={obj.fileUrl} target={'_blank'}>
                       {obj.fileName.slice(0, obj.fileName.indexOf(obj.id))}
                     </a>
@@ -126,11 +125,11 @@ const Task = ({
               })
             : null}
           {!completeBut && !delayBut && (
-            <div className="edit-button">
+            <div className="task-edit-button">
               <button onClick={() => setEdit(true)}>Редактировать</button>
             </div>
           )}
-          <div className="button-control">
+          <div className="task-button-control">
             {!completeBut && !delayBut && <button onClick={onClickComplete}>Завершить</button>}
             <button onClick={onClickDelete}>Удалить</button>
           </div>
