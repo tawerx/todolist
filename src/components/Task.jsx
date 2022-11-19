@@ -67,7 +67,7 @@ const Task = ({
   const taskRef = React.useRef(null);
   const dateFormate = dayjs().format('YYYY-MM-DD');
   React.useEffect(() => {
-    if (!delay) {
+    if (!delay && !complete) {
       if (date < dateFormate) {
         onDelayHandle();
       }
