@@ -1,10 +1,51 @@
-import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import React from 'react';
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db, storage } from './firebase-config';
 import EditTask from './EditTask';
 import dayjs from 'dayjs';
 import { deleteObject, ref } from 'firebase/storage';
 
+/**
+ * @typedef {object} Files
+ * @property {string} fileName
+ * @property {string} fileUrl
+ * @property {string} id
+ */
+
+/**
+ * @typedef {object} Task
+ * @property {string} id
+ * @property {string} title
+ * @property {string} description
+ * @property {string} date
+ * @property {boolean} complete
+ * @property {boolean} delay
+ * @property {[Files]} files
+ *
+ */
+
+/**
+ *
+ * @typedef {object} TaskProps
+ * @property {string} id
+ * @property {string} title
+ * @property {string} description
+ * @property {string} date
+ * @property {boolean} complete
+ * @property {boolean} delay
+ * @property {[Files]} files
+ * @property {[Task]} task
+ * @property {React.Dispatch<React.SetStateAction<never[]>>} setTask
+ * @property {React.Dispatch<React.SetStateAction<boolean>>} setFlag
+ * @property {boolean} flag
+ * @property {(data: string) => void} showAlert
+ */
+
+/**
+ * Task component
+ * @type {React.FC<TaskProps>}
+ * @returns {React.ReactElement} Return EditTask or Task element
+ */
 const Task = ({
   id,
   title,
@@ -17,6 +58,7 @@ const Task = ({
   setTask,
   setFlag,
   flag,
+  showAlert,
 }) => {
   const [visible, setVisible] = React.useState(false);
   const [completeBut, setCompleteBut] = React.useState(complete);
@@ -41,6 +83,9 @@ const Task = ({
     }
   }, []);
 
+  /**
+   * Функция, которая проверяет актуальность действия записи (не просрочена ли дата у записи).
+   */
   const onDelayHandle = async () => {
     if (taskRef.current) {
       taskRef.current.style.backgroundColor = 'red';
@@ -51,6 +96,9 @@ const Task = ({
     await updateDoc(taskDoc, updateDelay);
   };
 
+  /**
+   * Функция, которая удаляет запись
+   */
   const onClickDelete = async () => {
     if (files) {
       files.forEach(async (obj) => {
@@ -69,6 +117,9 @@ const Task = ({
     setFlag(!flag);
   };
 
+  /**
+   * Функция, которая помечает запись выполненой.
+   */
   const onClickComplete = async () => {
     if (taskRef.current) {
       taskRef.current.style.backgroundColor = 'green';
@@ -93,6 +144,7 @@ const Task = ({
           setFlag={setFlag}
           flag={flag}
           files={files}
+          showAlert={showAlert}
         />
       </div>
     );

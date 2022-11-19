@@ -98,6 +98,7 @@ body {
   &-title {
     display: flex;
     flex-direction: column;
+    cursor: pointer;
 
     h3 {
       width: 250px;
@@ -238,5 +239,27 @@ body {
     span {
       cursor: pointer;
     }
+  }
+}
+
+.alert {
+  width: 375px;
+  height: 125px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: rgb(187, 89, 252);
+  border: 1px solid black;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+
+  span {
+    font-size: 18px;
+    font-weight: 700;
   }
 }

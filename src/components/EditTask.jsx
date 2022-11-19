@@ -1,11 +1,48 @@
-import { async } from '@firebase/util';
+import React from 'react';
 import dayjs from 'dayjs';
 import { doc, updateDoc } from 'firebase/firestore';
-import { getDownloadURL, ref, uploadBytes, deleteObject } from 'firebase/storage';
-import React from 'react';
+import { ref, deleteObject } from 'firebase/storage';
 import { db, storage } from './firebase-config';
-import { uploadAndGetUrl } from './NewTask';
+import { uploadAndGetUrl } from '../buisnessLogic';
+/**
+ * @typedef {object} Files
+ * @property {string} fileName
+ * @property {string} fileUrl
+ * @property {string} id
+ */
 
+/**
+ * @typedef {object} Task
+ * @property {string} id
+ * @property {string} title
+ * @property {string} description
+ * @property {string} date
+ * @property {boolean} complete
+ * @property {boolean} delay
+ * @property {[Files]} files
+ *
+ */
+
+/**
+ * @typedef {object} EditTaskProps
+ * @property {string} id
+ * @property {string} title
+ * @property {string} description
+ * @property {string} date
+ * @property {React.Dispatch<React.SetStateAction<boolean>>} setEdit
+ * @property {boolean} flag
+ * @property {React.Dispatch<React.SetStateAction<boolean>>} setFlag
+ * @property {[Task]} task
+ * @property {React.Dispatch<React.SetStateAction<never[]>>} setTask
+ * @property {[Files]} files
+ * @property {(data: string) => void} showAlert
+ */
+
+/**
+ * EditTask component
+ * @type {React.FC<EditTaskProps}
+ * @returns {React.ReactElement} The EditTask element
+ */
 const EditTask = ({
   id,
   title,
@@ -17,19 +54,23 @@ const EditTask = ({
   task,
   setTask,
   files,
+  showAlert,
 }) => {
   const [taskTitle, setTaskTitle] = React.useState(title);
   const [taskDesc, setTastDesc] = React.useState(description);
   const [taskDate, setTaskDate] = React.useState(date);
   const [activeBut, setActiveBut] = React.useState(false);
+  const [newFiles, setNewFiles] = React.useState([]);
 
+  /**
+   * Функция, которая удаляет выбранный файл из записи
+   * @param {Files} fileObj
+   */
   const onClickDeleteFile = async (fileObj) => {
     const fileRef = ref(storage, `files/${fileObj.fileName}`);
     await deleteObject(fileRef);
 
     const findItem = files.findIndex((obj) => obj.id == fileObj.id);
-    console.log(findItem);
-    console.log(files);
     files.splice(findItem, 1);
 
     const taskDoc = doc(db, 'tasks', id);
@@ -44,57 +85,73 @@ const EditTask = ({
     setFlag(!flag);
   };
 
-  const onChangeFile = async (e) => {
-    try {
-      const newFiles = e.target.files;
+  const onChangeFile = (e) => {
+    if (e.target.files.length > 5 - files.length) {
+      showAlert(`Можно выбрать только ${5 - files.length}`);
+    } else {
+      setNewFiles(e.target.files);
+    }
+  };
 
-      if (newFiles.length > 5 - files.length) {
-        return alert(`Можно выбрать только ${5 - files.length}`);
-      }
-      if (newFiles) {
-        setActiveBut(true);
+  /**
+   * Функция, которая обновляет поля: заголовок, описание, дату и файлы.
+   */
+  const onClickEdit = async () => {
+    try {
+      const taskDoc = doc(db, 'tasks', id);
+
+      if (newFiles.length > 0) {
         for (let i = 0; i < newFiles.length; i++) {
           if (i == newFiles.length - 1) {
-            await uploadAndGetUrl(newFiles[i]).then((obj) => {
+            await uploadAndGetUrl(newFiles[i]).then(async (obj) => {
               files.push(obj);
-              setActiveBut(false);
+              const edittedTask = {
+                title: taskTitle,
+                description: taskDesc,
+                date: taskDate,
+                files: files,
+              };
+              await updateDoc(taskDoc, edittedTask);
+
+              const newArrayTask = task;
+              const findItem = task.findIndex((obj) => obj.id == id);
+              newArrayTask[findItem].title = taskTitle;
+              newArrayTask[findItem].description = taskDesc;
+              newArrayTask[findItem].date = taskDate;
+              newArrayTask[findItem].files = files;
+              setTask(newArrayTask);
+
+              setEdit(false);
+              setFlag(!flag);
+              showAlert('Запись отредактирована!');
             });
           } else
             await uploadAndGetUrl(newFiles[i]).then((obj) => {
               files.push(obj);
             });
         }
-
-        const taskDoc = doc(db, 'tasks', id);
-        const updateFiles = {
-          files: files,
+      } else {
+        const edittedTask = {
+          title: taskTitle,
+          description: taskDesc,
+          date: taskDate,
         };
-        await updateDoc(taskDoc, updateFiles);
+        await updateDoc(taskDoc, edittedTask);
+
+        const newArrayTask = task;
+        const findItem = task.findIndex((obj) => obj.id == id);
+        newArrayTask[findItem].title = taskTitle;
+        newArrayTask[findItem].description = taskDesc;
+        newArrayTask[findItem].date = taskDate;
+        setTask(newArrayTask);
+
+        setEdit(false);
+        setFlag(!flag);
+        showAlert('Запись отредактирована!');
       }
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const onClickEdit = async () => {
-    const taskDoc = doc(db, 'tasks', id);
-    const edittedTask = {
-      title: taskTitle,
-      description: taskDesc,
-      date: taskDate,
-    };
-    await updateDoc(taskDoc, edittedTask);
-
-    const newArrayTask = task;
-    const findItem = task.findIndex((obj) => obj.id == id);
-    newArrayTask[findItem].title = taskTitle;
-    newArrayTask[findItem].description = taskDesc;
-    newArrayTask[findItem].date = taskDate;
-    setTask(newArrayTask);
-
-    setEdit(false);
-    setFlag(!flag);
-    alert('Запись отредактирована!');
   };
 
   return (
